@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#172753" />
+    <meta name="description" content="Bakı metro stansiyaları arasında avtobus və ekspres marşrutlarını tapın." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Metro Marşrut" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/apple-touch-icon.svg" type="image/svg+xml" />
+    <title>Metro Marşrut — Bakı</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      (() => {
+        const RECOVERY_KEY = 'metro-marsrut-stale-cache-recovery-v1';
+        let refreshing = false;
+        const reloadOnceAfterCacheReset = async () => {
+          if (sessionStorage.getItem(RECOVERY_KEY) === '1') return;
+          sessionStorage.setItem(RECOVERY_KEY, '1');
+          try {
+            if ('serviceWorker' in navigator) {
+              const registrations = await navigator.serviceWorker.getRegistrations();
+              await Promise.all(registrations.map(registration => registration.unregister()));
+            }
+            if ('caches' in window) {
+              const keys = await caches.keys();
+              await Promise.all(keys.map(key => caches.delete(key)));
+            }
+          } finally {
+            window.location.reload();
+          }
+        };
+        window.addEventListener('error', event => {
+          const target = event.target;
+          if (target && target.tagName === 'SCRIPT') reloadOnceAfterCacheReset();
+        }, true);
+        window.addEventListener('unhandledrejection', event => {
+          const reason = String(event.reason || '');
+          if (/ChunkLoadError|Loading chunk|dynamically imported module|Failed to fetch dynamically imported module/i.test(reason)) {
+            reloadOnceAfterCacheReset();
+          }
+        });
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (refreshing) return;
+            refreshing = true;
+            sessionStorage.removeItem(RECOVERY_KEY);
+            window.location.reload();
+          });
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js?v=6', { updateViaCache: 'none' })
+              .then(registration => registration.update())
+              .catch(() => undefined);
+          });
+        }
+      })();
+    </script>
+    <script defer src="%VITE_ANALYTICS_ENDPOINT%/umami" data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+  </body>
+</html>

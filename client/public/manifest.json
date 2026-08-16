@@ -1,0 +1,12 @@
+{
+  "name": "Metro Marşrut — Bakı",
+  "short_name": "Metro Marşrut",
+  "description": "Bakı metro stansiyaları arasında avtobus və ekspres marşrutlarını tapın.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#172753",
+  "orientation": "portrait-primary",
+  "lang": "az",
+  "icons": [{ "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any maskable" }]
+}

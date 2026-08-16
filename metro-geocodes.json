@@ -1,0 +1,26 @@
+[
+  {
+    "query": "Koroğlu metro station, Baku, Azerbaijan",
+    "lat": 40.4202652,
+    "lon": 49.9178076,
+    "display": "Koroğlu metro stansiyası, Heydər Əliyev prospekti, Nizami rayonu, Bakı, 1088, Azərbaycan"
+  },
+  {
+    "query": "Elmlər Akademiyası metro station, Baku, Azerbaijan",
+    "lat": 40.3751519,
+    "lon": 49.8154836,
+    "display": "Elmlər Akademiyası, Hüseyn Cavid prospekti, Yasamal rayonu, Bakı, 1143, Azərbaycan"
+  },
+  {
+    "query": "Xocəsən metro station, Baku, Azerbaijan",
+    "lat": 40.4230824,
+    "lon": 49.7796111,
+    "display": "Xocəsən Depo Metro, Çingiz xan küçəsi, Xocəsən, Motodrom YS, Xocəsən, Binəqədi rayonu, 1146, Azərbaycan"
+  },
+  {
+    "query": "Avtovağzal metro station, Baku, Azerbaijan",
+    "lat": 40.421508,
+    "lon": 49.7952155,
+    "display": "Avtovağzal Metro Stansiyası, Motodrom döngə 1, Motodrom YS, Xocəsən, Motodrom YS, Binəqədi rayonu, 1134, Azərbaycan"
+  }
+]
